@@ -1,7 +1,8 @@
 #include <iterator>
 #include <iostream>
 #include <ctime> 
-#include <cstdlib> 
+#include <cstdlib>
+//#include <>
 #include "funbp.h"
 using std::cout;
 using std::cin;
@@ -19,54 +20,48 @@ int main()
 	int p,q;
 	int n, m;
 	cin >> n >> m; // VALORES QUE O USUÁRIO VAI PASSAR (LINHA E COLUNA) DO BOARD.
-
-	// PREENCHIMENTO DO TABULEIRO COM ZEROS / CRIAÇÃO DO TABULEIRO e 2 nas bordas. FAZER FUNÇAÕ DISSO
-	for(i = 0; i < TAM; ++i)
-	{
-		for(j = 0; j < TAM; ++j)
-		{
-			board[i][j] = 0; 
-			if (i==0)
-			{
-				board[i][j]=2;
-			}
-			if (j==0)
-			{
-				board[i][j]=2;
-			}
-		}
-	}
-	for(i = 0; i < n+1; ++i)
-	{
-		for(j = 0; j < m+1; ++j)
+	//zeraBoard(board, n , m);
+	//std::vector< int** > Ve;	
+	//zeraBoard(board, n, m);
+		for ( i = 0; i < 5; ++i)
 		{
 			
-			if (i==n)
-			{
-				board[i+1][j]=2;
-			}
-			if (j==m)
-			{
-				board[i][j+1]=2;
-			}
-		}
-	}
+			while(1)
+			{	
 	
+				zeraBoard(board, n, m);
+				int counter = 0;
+				battleship(board, n , m, counter);
+				cruiser(board, n, m, counter);
+				cruiser(board, n, m, counter);
+				destroyer(board, n, m, counter);
+				destroyer(board, n, m, counter);
+				destroyer(board, n, m, counter);						
+				submarine(board, n, m, counter);
+				submarine(board, n, m, counter);
+				submarine(board, n, m, counter);
+				submarine(board, n, m, counter);
+							
+				
+				//for(int i=0; i < Ve.size(); i++){
+				//	printboard(Ve[i], n, m);
+				//}
 
+				std::cout << "Tem " << counter << " 1's \n";
 
-			battleship(board, n , m );
-			cruiser(board, n, m);
-			cruiser(board, n, m);
-			destroyer(board, n, m);
-			destroyer(board, n, m);
-			destroyer(board, n, m);
-			submarine(board, n, m);
-			submarine(board, n, m);
-			submarine(board, n, m);
-			submarine(board, n, m);
+				if(counter == 20)
+				{
+					cout<<"PQP\n";
+					printboard(board, n, m);
+					break;//	Ve.push_back(board);
+				}
+			}
+		}
 		
-			printboard(board, n, m);
-			
+		
+		
+
+
 			
 	
 
