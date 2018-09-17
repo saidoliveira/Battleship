@@ -2,7 +2,6 @@
 #include <iostream>
 #include <ctime> 
 #include <cstdlib>
-//#include <>
 #include "funbp.h"
 using std::cout;
 using std::cin;
@@ -14,8 +13,6 @@ using std::cin;
 //colocar limite de n e m
 int main()
 {	
-
-	srand(time(NULL));
 	int i, j, board[TAM][TAM]; // LINHA, COLUNA E A MATRIZ DO BOARD.
 	int p,q;
 	int n, m;

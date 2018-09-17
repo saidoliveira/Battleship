@@ -2,23 +2,18 @@
 #include <iostream>
 #include <ctime> 
 #include <cstdlib>
+#include <random>
 #include "funbp.h"
 using std::cout;
+using std::endl;
 //////////PROBLEMA>>>>As vezes não funciona porque o rand gera O MESMO NUMERO, achar um jeito de gerar numeros diferentes
-int randomN(int x)
-{
-	int random;
-	srand(time(NULL));
-	random = rand() % x;
-	return random;
-}
 
-int randomM(int x)
-{
-	int random;
-	srand(time(NULL));
-	random = rand() % x;
-	return random;
+int rand_number(){
+	std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_int_distribution<> dis(1, 15);
+
+	return std::round(dis(gen));
 }
 
 void printboard(int board[25][25], int n, int m) //std::ofstream &ofs)
@@ -91,14 +86,13 @@ void aondeehproibido(int mat[25][25],int n, int m)
 }
 void battleship(int board[25][25],int n, int m, int &counter)
 {	
-	srand(time(NULL));
 	int p, q;
-	p = rand() % n;
-	q = rand() % m;
+	p = rand_number() % n;
+	q =rand_number() % m;
 	
 	int hv;
 	int c=0;
-	hv = rand() % 2; // HV DE 0 E 1. SE HV = 0::HORIZONTAL | SE HV = 1::VERTICAL.
+	hv = rand_number() % 2; // HV DE 0 E 1. SE HV = 0::HORIZONTAL | SE HV = 1::VERTICAL.
 
 	int count=0; //Contador para garantir que o while não entre no looping infinito;
 	while(1)
@@ -142,8 +136,9 @@ void battleship(int board[25][25],int n, int m, int &counter)
 		}
 		//cout<<count<<'\n';
 		{
-			p = rand() % n+1 ;		//Se não deu certo com hv=0,nem com hv=1, gera outra cordenada
-			q = rand() % m+1 ;
+			
+			p = rand_number() % n+1 ;		//Se não deu certo com hv=0,nem com hv=1, gera outra cordenada
+			q = rand_number() % m+1 ;
 			//cout<<p<<q<<'\n';
 		}
 	}
@@ -152,17 +147,16 @@ void battleship(int board[25][25],int n, int m, int &counter)
 
 void cruiser(int board[25][25], int n, int m, int &counter)
 {
-	srand(time(NULL)); 
+	
 	int p,q;
-	p = rand() % n+1 ;  //Gerando coordenadas aleatórias
-	q = rand() % m+1 ;	
+	p = rand_number() % n+1 ;  //Gerando coordenadas aleatórias
+	q = rand_number() % m+1 ;	
 	
 	int hv;
 	int c=0;
-	hv = rand() % 2; // HV DE 0 E 1. SE HV = 0::HORIZONTAL | SE HV = 1::VERTICAL.
+	hv = rand_number() % 2; // HV DE 0 E 1. SE HV = 0::HORIZONTAL | SE HV = 1::VERTICAL.
 
-	int count=0; //Contador para garantir que o while não entre no looping infinito; hv;
-	
+	int count=0; //Contador para garantir que o while não entre no looping infinito; hv;	
 	while(1)
 	{	c++;
 		if(board[p][q] == 0)
@@ -202,8 +196,8 @@ void cruiser(int board[25][25], int n, int m, int &counter)
 		}
 		//cout<<count<<'\n';
 		{
-			p = rand() % n+1 ;		//Se não deu certo com hv=0,nem com hv=1, gera outra cordenada
-			q = rand() % m+1 ;
+			p = rand_number() % n+1 ;		//Se não deu certo com hv=0,nem com hv=1, gera outra cordenada
+			q = rand_number() % m+1 ;
 			//cout<<p<<q<<'\n';
 		}
 	}
@@ -214,14 +208,14 @@ void cruiser(int board[25][25], int n, int m, int &counter)
 
 void destroyer(int board[25][25], int n, int m, int &counter)
 {
-	srand(time(NULL)); 
+	
 	int p,q;
-	p = rand() % n+1 ;  //Gerando coordenadas aleatórias
-	q = rand() % m+1 ;	
+	p = rand_number() % n+1 ;  //Gerando coordenadas aleatórias
+	q = rand_number() % m+1 ;	
 	
 	int hv;
 	int c=0;
-	hv = rand() % 2; // HV DE 0 E 1. SE HV = 0::HORIZONTAL | SE HV = 1::VERTICAL.
+	hv = rand_number() % 2; // HV DE 0 E 1. SE HV = 0::HORIZONTAL | SE HV = 1::VERTICAL.
 
 	int count=0; //Contador para garantir que o while não entre no looping infinito; hv;
 	
@@ -262,8 +256,8 @@ void destroyer(int board[25][25], int n, int m, int &counter)
 		}
 		//cout<<count<<'\n';
 		{
-			p = rand() % n+1 ;		//Se não deu certo com hv=0,nem com hv=1, gera outra cordenada
-			q = rand() % m+1 ;
+			p = rand_number() % n+1 ;		//Se não deu certo com hv=0,nem com hv=1, gera outra cordenada
+			q = rand_number() % m+1 ;
 			//cout<<p<<q<<'\n';
 		}
 	}
@@ -271,14 +265,14 @@ void destroyer(int board[25][25], int n, int m, int &counter)
 }
 
 /*void submarine(int board[25][25], int n, int m, int &counter){
-	srand(time(NULL)); 
+	
 	int p,q;
-	p = rand() % n+1 ;  //Gerando coordenadas aleatórias
-	q = rand() % m+1 ;	
+	p = rand_number() % n+1 ;  //Gerando coordenadas aleatórias
+	q = rand_number() % m+1 ;	
 	
 	int hv;
 	int c=0;
-	hv = rand() % 2; // HV DE 0 E 1. SE HV = 0::HORIZONTAL | SE HV = 1::VERTICAL.
+	hv = rand_number() % 2; // HV DE 0 E 1. SE HV = 0::HORIZONTAL | SE HV = 1::VERTICAL.
 
 	int count=0; //Contador para garantir que o while não entre no looping infinito; hv;
 	
@@ -317,8 +311,8 @@ void destroyer(int board[25][25], int n, int m, int &counter)
 		}
 		//cout<<count<<'\n';
 		{
-			p = rand() % n+1 ;		//Se não deu certo com hv=0,nem com hv=1, gera outra cordenada
-			q = rand() % m+1 ;
+			p = rand_number() % n+1 ;		//Se não deu certo com hv=0,nem com hv=1, gera outra cordenada
+			q = rand_number() % m+1 ;
 			//cout<<p<<q<<'\n';
 		}
 	}
@@ -329,7 +323,7 @@ void submarine(int board[25][25], int n, int m, int &counter){
 	int x, y;
 	int c(0);//BURRO
 	int hv;
-	hv = rand() % 2;
+	hv = rand_number() % 2;
 	for(x = 1; x < n+1; ++x)
 	{
 		for(y = 1; y < m+1; ++y)
