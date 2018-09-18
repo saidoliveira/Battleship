@@ -3,22 +3,37 @@
 #include <ctime> 
 #include <cstdlib>
 #include "funbp.h"
+#include <vector>
 #include <fstream>
-#define TAM 18 
+using std::ofstream;
 using std::cout;
 using std::cin;
-
+using std::vector;
+using matrix = std::vector<vector<int>>;///////////////////////////////////////////////////////////////////////////////////////
+#define TAM 18
+//OBS: tá imprimindo a borda do tabuleiro para ter noção doq ta contesendo, dps tira
+//OBS o barco grande tá sendo colocado lindamente em qualquer lugar , aparentemente sem erros,
+//acredito q pros outros barcos seje só trocar trocar os numeros...etc etc;
+//se digitado 15x15 dá um erro mas foda-se
+//colocar limite de n e m
 int main()
 {	
-	int i, j, board[TAM][TAM]; // Incrementadores I linhas, J colunas e a declaração da matriz do board com tamanho máximo TAM = 25.
-	int n, m; // Valores que indicam o tamanho de N linhas e M colunas.
-	std::ofstream outFile;
+	int i, j,k,l, board[TAM][TAM]; // LINHA, COLUNA E A MATRIZ DO BOARD.
+	int p,q;
+	int n, m;
+	int num = 10;
+	cin >> n >> m; 
+	vector< matrix > lista2( num, matrix( TAM, vector<int>(TAM) ) );
+	ofstream outFile;
 	outFile.open("teste.txt");
-	cin >> n >> m; // Leitura das linhas e colunas do board.
-	for ( i = 0; i < 5; ++i)
-	{
-		while(1)
-		{	
+	//zeraBoard(board, n , m);
+	//std::vector< int** > Ve;	
+	//zeraBoard(board, n, m);
+		for ( i = 0; i < num; ++i)
+		{
+			
+			while(1)
+			{	
 			int counter = 0;
 			if(n >= 9 && m >= 9)
 			{
@@ -49,30 +64,46 @@ int main()
 				submarine(board, n, m, counter);
 			}
 
-			std::cout << "Tem " << counter << " 1's \n";
-
-			if(counter == 20)
-			{	//versaoFinal( board, n,  m) 
-				
-				int i, j;
-				for(i = 1; i < n+1; ++i)
-				{
-					for(j = 1; j < m+1; ++j)
-					{
-						outFile << board[i][j] << ' ';
-			
-					}
-					outFile << "\n";
+				std::cout << "Tem " << counter << " 1's \n";
+				versaoFinal( board,  n,  m);//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				if(counter == 20)
+				{	
+					for( j=0 ; j< num ; j++ )
+    				{
+					std::cout << ">>> Matriz " << j << ":\n";
+        				for ( k=0 ; k < n+1 ; k++ )
+       				 	{
+           					 for ( l=0 ; l <m+1; l++ )
+           					 {
+           			 			lista2[i][k][l] = board[k][l];
+       						 }
+       					}
+    				}
+    				printboard(board, n, m);
+    			}
+					break;//	Ve.push_back(board);
 				}
-				printboard(board, n, m);
-				
-				
-				break;
 			}
-		}
-		outFile << "\n";
-	}
-
-	outFile.close();
+			
+			for( j=0 ; j< num ; j++ )
+    				{
+					outFile << ">>> Matriz " << j+1 << ":\n";
+        				for ( k=1 ; k < n+1 ; k++ )
+       				 	{
+           					 for ( l=1 ; l < m+1; l++ )
+           					 {
+           			 			outFile<<lista2[j][k][l]<<' ';
+       						 }
+       						 outFile<<'\n';
+       					}
+       					
+    				}
+    outFile.close();
 	return 0;
 }
+/*
+v[18];
+for( k=1 ; k < n+1 ; k++ )
+       if(board[i][j]==1)
+       	v[k]++;
+       	*/

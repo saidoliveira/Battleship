@@ -6,8 +6,7 @@
 #include "funbp.h"
 using std::cout;
 using std::endl;
-
-void
+//////////PROBLEMA>>>>As vezes não funciona porque o rand gera O MESMO NUMERO, achar um jeito de gerar numeros diferentes
 
 int rand_number(){
 	std::random_device rd;  //Will be used to obtain a seed for the random number engine
@@ -17,15 +16,15 @@ int rand_number(){
 	return std::round(dis(gen));
 }
 
-void printboard(int board[18][18], int n, int m) 
+void printboard(int board[18][18], int n, int m) //std::ofstream &ofs)
 {
 	int i, j;
 	for(i = 1; i < n+1; ++i)
 	{
-		for(j = 1; j < m+1; ++j)
+		for(j = 1; j < m+1; ++j)////AJEITAR PRA IR ATÉ m x n
 		{
 			cout<<board[i][j]<<' ';
-			
+			//ofs << board[i][j];
 		}
 		cout<<'\n';
 	}
@@ -135,12 +134,12 @@ void battleship(int board[18][18],int n, int m, int &counter)
 				}
 			}
 		}
-		
+		//cout<<count<<'\n';
 		{
 			
 			p = rand_number() % n+1 ;		//Se não deu certo com hv=0,nem com hv=1, gera outra cordenada
 			q = rand_number() % m+1 ;
-			
+			//cout<<p<<q<<'\n';
 		}
 	}
 	aondeehproibido(board, n, m);
@@ -195,11 +194,11 @@ void cruiser(int board[18][18], int n, int m, int &counter)
 				}
 			}
 		}
-		
+		//cout<<count<<'\n';
 		{
 			p = rand_number() % n+1 ;		//Se não deu certo com hv=0,nem com hv=1, gera outra cordenada
 			q = rand_number() % m+1 ;
-			
+			//cout<<p<<q<<'\n';
 		}
 	}
 	aondeehproibido(board, n, m);
@@ -255,17 +254,17 @@ void destroyer(int board[18][18], int n, int m, int &counter)
 				}
 			}
 		}
-		
+		//cout<<count<<'\n';
 		{
 			p = rand_number() % n+1 ;		//Se não deu certo com hv=0,nem com hv=1, gera outra cordenada
 			q = rand_number() % m+1 ;
-			
+			//cout<<p<<q<<'\n';
 		}
 	}
 	aondeehproibido(board, n, m);
 }
 
-void submarinerandom(int board[18][18], int n, int m, int &counter){
+void submarine(int board[18][18], int n, int m, int &counter){
 	
 	int p,q;
 	p = rand_number() % n+1 ;  //Gerando coordenadas aleatórias
@@ -310,17 +309,17 @@ void submarinerandom(int board[18][18], int n, int m, int &counter){
 				}
 			}
 		}
-		
+		//cout<<count<<'\n';
 		{
 			p = rand_number() % n+1 ;		//Se não deu certo com hv=0,nem com hv=1, gera outra cordenada
 			q = rand_number() % m+1 ;
-			
+			//cout<<p<<q<<'\n';
 		}
 	}
 	aondeehproibido(board, n, m);
 }
 
-void submarine(int board[18][18], int n, int m, int &counter){
+void submarinerandom(int board[18][18], int n, int m, int &counter){
 	int x, y;
 	int c(0);//BURRO
 	int hv;
@@ -359,4 +358,43 @@ void submarine(int board[18][18], int n, int m, int &counter){
 				}
 		}
 	}
+}
+void versaoFinal(int board[18][18], int n, int m) /////////////////////////////////////////////////////////////////////////////////////////////////////////
+{
+	int i, j;
+	//3 = <
+	//4 = >
+	//5 = ^
+	//6 = v
+	for(i = 1; i < n+1; ++i)
+	{
+		for(j = 1; j < m+1; ++j)
+		{
+			if(board[i][j]==1)
+			{
+				if(board[i+1][j]==2 && board[i-1][j]==2 && board[i][j+1]==2 && board[i][j-1]==2)//para submarino
+				{
+					board[i][j]=1;
+					continue;
+				}
+				if(board[i+1][j]==2 && board[i-1][j]==2 && board[i][j-1]==2)//Para 3 = <
+				{
+					board[i][j]=3;
+				}
+				if(board[i+1][j]==2 && board[i-1][j]==2 && board[i][j+1]==2 )//Para 4 = >
+				{
+					board[i][j]=4;
+				}
+				if(board[i-1][j]==2 && board[i][j+1]==2 && board[i][j-1]==2)//Para 5 = ^
+				{
+					board[i][j]=5;
+				}
+				if(board[i+1][j]==2 && board[i][j+1]==2 && board[i][j-1]==2)//Para 6 = v
+				{
+					board[i][j]=6;
+				}
+			}
+		}
+	}
+
 }
