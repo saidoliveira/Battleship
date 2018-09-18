@@ -3,31 +3,39 @@
 #include <ctime> 
 #include <cstdlib>
 #include "funbp.h"
+#include <fstream>
+#define TAM 18 
 using std::cout;
 using std::cin;
-#define TAM 25 
-//OBS: tá imprimindo a borda do tabuleiro para ter noção doq ta contesendo, dps tira
-//OBS o barco grande tá sendo colocado lindamente em qualquer lugar , aparentemente sem erros,
-//acredito q pros outros barcos seje só trocar trocar os numeros...etc etc;
-//se digitado 15x15 dá um erro mas foda-se
-//colocar limite de n e m
+
 int main()
 {	
-	int i, j, board[TAM][TAM]; // LINHA, COLUNA E A MATRIZ DO BOARD.
-	int p,q;
-	int n, m;
-	cin >> n >> m; // VALORES QUE O USUÁRIO VAI PASSAR (LINHA E COLUNA) DO BOARD.
-	//zeraBoard(board, n , m);
-	//std::vector< int** > Ve;	
-	//zeraBoard(board, n, m);
-		for ( i = 0; i < 5; ++i)
-		{
-			
-			while(1)
-			{	
-	
+	int i, j, board[TAM][TAM]; // Incrementadores I linhas, J colunas e a declaração da matriz do board com tamanho máximo TAM = 25.
+	int n, m; // Valores que indicam o tamanho de N linhas e M colunas.
+	std::ofstream ofs ("teste.txt", std::ofstream::out);
+	cin >> n >> m; // Leitura das linhas e colunas do board.
+	for ( i = 0; i < 5; ++i)
+	{
+		while(1)
+		{	
+			int counter = 0;
+			if(n >= 9 && m >= 9)
+			{
 				zeraBoard(board, n, m);
-				int counter = 0;
+				battleship(board, n , m, counter);
+				cruiser(board, n, m, counter);
+				cruiser(board, n, m, counter);							
+				destroyer(board, n, m, counter);							
+				destroyer(board, n, m, counter);
+				destroyer(board, n, m, counter);						
+				submarinerandom(board, n, m, counter);
+				submarinerandom(board, n, m, counter);
+				submarinerandom(board, n, m, counter);
+				submarinerandom(board, n, m, counter);
+			}
+			else
+			{
+				zeraBoard(board, n, m);
 				battleship(board, n , m, counter);
 				cruiser(board, n, m, counter);
 				cruiser(board, n, m, counter);
@@ -38,29 +46,18 @@ int main()
 				submarine(board, n, m, counter);
 				submarine(board, n, m, counter);
 				submarine(board, n, m, counter);
-							
-				
-				//for(int i=0; i < Ve.size(); i++){
-				//	printboard(Ve[i], n, m);
-				//}
+			}
 
-				std::cout << "Tem " << counter << " 1's \n";
+			std::cout << "Tem " << counter << " 1's \n";
 
-				if(counter == 20)
-				{
-					cout<<"PQP\n";
-					printboard(board, n, m);
-					break;//	Ve.push_back(board);
-				}
+			if(counter == 20)
+			{	//versaoFinal( board, n,  m) 
+				ofs << board[n][m];
+				printboard(board, n, m);
+				break;
 			}
 		}
-		
-		
-		
-
-
-			
-	
+	}
 
 	return 0;
 }
