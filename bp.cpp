@@ -12,7 +12,8 @@ int main()
 {	
 	int i, j, board[TAM][TAM]; // Incrementadores I linhas, J colunas e a declaração da matriz do board com tamanho máximo TAM = 25.
 	int n, m; // Valores que indicam o tamanho de N linhas e M colunas.
-	std::ofstream ofs ("teste.txt", std::ofstream::out);
+	std::ofstream outFile;
+	outFile.open("teste.txt");
 	cin >> n >> m; // Leitura das linhas e colunas do board.
 	for ( i = 0; i < 5; ++i)
 	{
@@ -52,12 +53,26 @@ int main()
 
 			if(counter == 20)
 			{	//versaoFinal( board, n,  m) 
-				ofs << board[n][m];
+				
+				int i, j;
+				for(i = 1; i < n+1; ++i)
+				{
+					for(j = 1; j < m+1; ++j)
+					{
+						outFile << board[i][j] << ' ';
+			
+					}
+					outFile << "\n";
+				}
 				printboard(board, n, m);
+				
+				
 				break;
 			}
 		}
+		outFile << "\n";
 	}
 
+	outFile.close();
 	return 0;
 }
